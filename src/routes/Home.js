@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import ToDo from "../components/ToDo";
-import { actionCreators } from "../store";
+import { add } from "../store";
 
 function Home({ toDos, addToDo }) {
   const [text, setText] = useState("");
@@ -9,9 +9,9 @@ function Home({ toDos, addToDo }) {
     setText(e.target.value);
   };
   const onSumbit = e => {
-    console.log("submited!");
-    addToDo(text);
     e.preventDefault();
+    addToDo(text);
+    setText("");
   };
 
   return (
@@ -35,7 +35,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return { addToDo: text => dispatch(actionCreators.addToDo(text)) };
+  return { addToDo: text => dispatch(add(text)) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
